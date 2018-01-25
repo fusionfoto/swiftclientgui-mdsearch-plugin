@@ -57,12 +57,12 @@ From that point onwards, everything is handled by a [`postMessage()`](https://de
 ## How do I write a search plugin?
 Your plugin can be any webpage that can generate JSON. The JSON you create on the page will be sent to SwiftStack client via `postMessage()`.
 
-On page load, Client will send an **init-data** message with information about the elasticsearch endpoint and any previous search you ran (which you can choose to discard if you want).
+On page load, Client will send an **swiftstackclient-init-data** message with information about the elasticsearch endpoint and any previous search you ran (which you can choose to discard if you want).
 
 Then you can, optionally:
 
- - Validate the message by sending a **validation-request** message (and listening for a response);
- - Tell the client to run your search with a **search-request** message (optionally, you can also listen for a response).
+ - Validate the message by sending a **swiftstackclient-validation-request** message (and listening for a response);
+ - Tell the client to run your search with a **swiftstackclient-search-request** message (optionally, you can also listen for a response).
 
 Examples of doing this are in [`ui.js`](https://github.com/swiftstack/swiftclientgui-mdsearch-plugin/blob/master/ui.js), and the interface is below.
 
@@ -85,23 +85,23 @@ So, for example, this code near the start of your page should do the job:
 ```
 window.addEventListener('message', function(e) {
   var data = JSON.parse(e.data);
-  if (data.type === 'init-data') { 
+  if (data.type === 'swiftstackclient-init-data') { 
     // Do Something
-  } else if (data.type === 'validation-response') { 
+  } else if (data.type === 'swiftstackclient-validation-response') { 
     // Do something else.
-  } else if (data.type === 'search-response') { 
+  } else if (data.type === 'swiftstackclient-search-response') { 
     // Do a final thing.
   }
 });
 ```
 
 ### Sending Messages
-To send messages, use `postMessage()` and target the `parent` of your window. To send a `validation-request` message, for example:
+To send messages, use `postMessage()` and target the `parent` of your window. To send a `swiftstackclient-validation-request` message, for example:
 
 ```
 var data = {
   'query': JSON.parse(myElasticSearchQuery),
-  'type': 'validation-request'
+  'type': 'swiftstackclient-validation-request'
 }
 parent.postMessage(JSON.stringify(postData),'*');
 ```
@@ -110,45 +110,45 @@ Events you can listen for or send are described below:
 
 ## `postMessage()` interface
 
-### init-data
+### swiftstackclient-init-data
 
-You will always recieve an init-data message on page load. The postMessage event will have a `data` property with these attributes:
+You will always recieve a swiftstackclient-init-data message on page load, from SwiftStack Client. The postMessage event will have a `data` property with these attributes:
 
-  - `type`: "init-data"
+  - `type`: "swiftstackclient-init-data"
   - `elasticURI `: The URI to the elastic endpoint SwiftStack client is currently using
   - `query `: The previous elasticsearch query you ran, if any, as an object.
 
-### validation-request
+### swiftstackclient-validation-request
 
 You can **send** a validation request at any time. The postMessage data must be an object with these properties:
 
-  - `type`: "validation-request"
+  - `type`: "swiftstackclient-validation-request"
   - `query`: Your elasticsearch query as an object.
 
-You should then listen for a `validation-response` reply from the client:
+You should then listen for a `swiftstackclient-validation-response` reply from the client:
 
-### validation-response
+### swiftstackclient-validation-response
 
 When validation completes, the client will send this message. The postMessage event will have a `data` property with these attributes:
 
-  - `type`: "validation-response"
+  - `type`: "swiftstackclient-validation-response"
   - `validated`: `true` if the query validated OK; `false` otherwise.
   - `error`: The error message as a string from elasticsearch, if any.
 
-### search-request
+### swiftstackclient-search-request
 
 You can **send** a search request at any time, even if you know your query to be invalid. The postMessage data must be an object with these properties:
 
-  - `type`: "search-request"
+  - `type`: "swiftstackclient-search-request"
   - `query`: Your elasticsearch query as an object.
 
-You can optionally then listen for a `search-response` reply from the client:
+You can optionally then listen for a `swiftstackclient-search-response` reply from the client:
 
-### search-response
+### swiftstackclient-search-response
 
 When a search is dispatched to elasticsearch (not completed, necessarily), the client will send this message. The postMessage event will have a `data` property with these attributes:
 
-  - `type`: "search-response"
+  - `type`: "swiftstackclient-search-response"
 
 Thanks!
 
