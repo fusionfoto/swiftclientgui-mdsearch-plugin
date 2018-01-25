@@ -1,0 +1,6 @@
+.invalid { 
+  background-color: #f28282 !important;
+}
+.valid { 
+  background-color: #a5f45f !important;
+}
