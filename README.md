@@ -63,7 +63,45 @@ Examples of doing this are in `ui.js`, and the interface is below.
 
 Quite possibly the easiest way to write a plugin is to start with this one as a base, and develop it further to meet your needs.
 
-## postMessage() Interface
+## Interface
+We use `postMessage()` to communicate from the parent window (SwiftStack Client) to your webapp (a child iframe). 
+
+For examples of this, see `ui.js`.
+
+### Recieving Messages
+
+To receive messages:
+
+ - Your page should listen for window message events from the Client.
+ - Each incoming event will have a `data.type` property telling you what kind of message this is. 
+
+So, for example, this code near the start of your page should do the job:
+
+```
+window.addEventListener('message', function(e) {
+  var data = JSON.parse(e.data);
+  if (data.type === 'init-data') { 
+    // Do Something
+  } else if (data.type === 'validation-response') { 
+    // Do something else.
+  } else if (data.type === 'search-response') { 
+    // Do a final thing.
+  }
+});
+
+### Sending Messages
+To send messages, use `postMessage()` and target the `parent` of your window. To send a `validation-request` message, for example:
+
+```
+var data = {
+  'query': JSON.parse(myElasticSearchQuery),
+  'type': 'validation-request'
+}
+parent.postMessage(JSON.stringify(postData),'*');
+
+Events you can listen for or send are described below:
+
+## `postMessage()` interface
 
 ### init-data
 
