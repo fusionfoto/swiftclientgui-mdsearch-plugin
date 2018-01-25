@@ -1,6 +1,10 @@
 # What Is This?
 It's a quick example of a SwiftStack Client custom metadata search plugin, written using [angular.js](https://angularjs.org).
 
+It looks like this:
+
+![](https://github.com/swiftstack/swiftclientgui-mdsearch-plugin/blob/master/static/example.png)
+
 # ...and what is that?
 SwiftStack Client provides a native "Metadata Search" tool, which allows you to search for objects in Swift when you've enabled [Metadata Search](https://www.swiftstack.com/docs/admin/cluster_management/metadata_sync.html).
 
