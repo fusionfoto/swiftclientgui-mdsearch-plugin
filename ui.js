@@ -8,11 +8,6 @@ app.controller('MainController', function($scope, $http, $timeout) {
   $scope.searchSimple = '';
   $scope.searchJSON = '';
 
-  // On load, post a message to the parent telling it which GUID we'll listen to for messages.
-  $scope.update = function() {
-  }
-  $scope.update();
-
   // Add some event listeners for comms from SwiftStack client (the parent window).
 
   /* 
