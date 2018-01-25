@@ -88,6 +88,7 @@ window.addEventListener('message', function(e) {
     // Do a final thing.
   }
 });
+```
 
 ### Sending Messages
 To send messages, use `postMessage()` and target the `parent` of your window. To send a `validation-request` message, for example:
@@ -98,6 +99,7 @@ var data = {
   'type': 'validation-request'
 }
 parent.postMessage(JSON.stringify(postData),'*');
+```
 
 Events you can listen for or send are described below:
 
