@@ -7,17 +7,22 @@ It's a quick example of a SwiftStack Client custom metadata search plugin, writt
 
 SwiftStack Client provides a native "Metadata Search" tool, which allows you to search for objects in Swift when you've enabled [Metadata Search](https://www.swiftstack.com/docs/admin/cluster_management/metadata_sync.html).
 
-That said, Elasticsearch is powerful and complicated, and you may well want to write your own search applications to find data, whilst still allowing SwiftStack Client to carry out data operations against yur object store. That's where this comes in.
+That said, Elasticsearch is powerful and complicated, and you may well want to write your own search applications to find data, whilst still allowing SwiftStack Client to carry out data operations against your object store. That's where this comes in.
 
 ## How do I use it?
-You'll need to ensure node.js is installed on your (presumably, linux) machine - details can be found [here](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora). 
+You'll need to ensure node.js is installed on your machine - details can be found [here](https://nodejs.org/en/download/). 
 
-Clone this repo. Then, install the required node.js modules:
+Clone this repo:
+```
+https://github.com/swiftstack/swiftclientgui-mdsearch-plugin.git
+```
+
+...then, install the required node.js modules:
 ```
 $ npm install 
 ```
 
-Then, spin up the webpage on port 3000 locally:
+Last, spin up the webpage on port 3000 locally:
 ```
 $ node app.js
 ```
@@ -57,9 +62,9 @@ On page load, Client will send an **init-data** message with information about t
 Then you can, optionally:
 
  - Validate the message by sending a **validation-request** message (and listening for a response);
- - Tell the client to run yur search with a **search-request** message (optionally, you can also listen for a response).
+ - Tell the client to run your search with a **search-request** message (optionally, you can also listen for a response).
 
-Examples of doing this are in `ui.js`, and the interface is below.
+Examples of doing this are in [`ui.js`](https://github.com/swiftstack/swiftclientgui-mdsearch-plugin/blob/master/ui.js), and the interface is below.
 
 Quite possibly the easiest way to write a plugin is to start with this one as a base, and develop it further to meet your needs.
 
