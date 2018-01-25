@@ -28,8 +28,8 @@
           <h2>{{ appname }}</h2>
           <p>Searching elasticsearch endpoint {{ elasticURI }}</p>
           <h4>Enter search as JSON:</h1>
-          <textarea ng-model="searchJSON" ng-class="{ 'invalid': validated && invalid, 'valid': validated && !invalid }" ng-model-options='{ debounce: 500 }' cols="60" rows="5" ng-model-options="{ debounce: 500 }" style="font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;" ng-change="validateSearch()"></textarea>
-          <p ng-show="invalid" style="color:red">Elasticsearch validation error: {{ error }}</p>
+          <textarea ng-model="searchJSON" placeholder='e.g, {"query_string":{"fields":["foo.keyword"],"query":"bar"}}' ng-class="{ 'invalid': validated && invalid, 'valid': validated && !invalid }" ng-model-options='{ debounce: 500 }' cols="60" rows="5" ng-model-options="{ debounce: 500 }" style="font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;" ng-change="validateSearch()"></textarea>
+          <p ng-show="validated && invalid" style="color:red">Elasticsearch validation error: {{ error }}</p>
           <p><button ng-disabled="validated && invalid" ng-click="searchRequest()" class="btn btn-primary" type="submit">Search!</button></p>
         </div>
       </div>

@@ -3,7 +3,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
-var columbus = require(path.join(__dirname,'api','columbus'))
 
 const app = express()
 
